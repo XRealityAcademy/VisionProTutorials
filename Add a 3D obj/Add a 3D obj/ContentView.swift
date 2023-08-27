@@ -17,7 +17,7 @@ struct ContentView: View {
 
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-
+   
     var body: some View {
         VStack {
             RealityView { content in
@@ -42,7 +42,13 @@ struct ContentView: View {
 
                 Toggle("Show ImmersiveSpace", isOn: $showImmersiveSpace)
                     .toggleStyle(.button)
+                Button("Open"){
+                    Task {
+                        await openImmersiveSpace(id: "ImmersiveSpace")
+                    }
+                }
             }.padding().glassBackgroundEffect()
+
         }
         .onChange(of: showImmersiveSpace) { _, newValue in
             Task {

@@ -16,6 +16,6 @@ struct Add_a_3D_objApp: App {
 
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView()
-        }.immersionStyle(selection: .constant(.full), in: .full)
+        }
     }
 }

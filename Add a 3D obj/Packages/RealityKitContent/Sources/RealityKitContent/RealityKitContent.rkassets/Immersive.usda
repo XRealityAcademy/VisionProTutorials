@@ -10,36 +10,6 @@ reorder rootPrims = ["Root", "_GridMaterial"]
 def Xform "Root"
 {
     reorder nameChildren = ["Sphere_Left", "Sphere_Right", "_GridMaterial", "_PlainMaterial"]
-    def Sphere "Sphere_Right" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/_PlainMaterial/Material> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.5, 1.5, -1.5)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
-
-    def Sphere "Sphere_Left" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/_PlainMaterial/Material> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.5, 1.5, -1.5)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
-
     def "_PlainMaterial" (
         active = true
         prepend references = @_PlainMaterial.usda@
@@ -47,6 +17,205 @@ def Xform "Root"
     {
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def "Toy_Drummer" (
+        active = true
+        prepend references = @Drummer.usdz@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (5, 5, 5)
+        float3 xformOp:translate = (0.5, 1.5, -2)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def "Toy_Drummer_1" (
+        active = true
+        prepend references = @Drummer.usdz@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (5, 5, 5)
+        float3 xformOp:translate = (-0.5, 1.5, -2)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "geom"
+        {
+            over "realistic"
+            {
+                over "materials"
+                {
+                    over "toy_drummer_realistic"
+                    {
+                        token outputs:mtlx:surface.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/toy_drummer_realistic_mat_mtlx.outputs:out>
+                        token outputs:surface.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/toy_drummer_realistic_mat.outputs:surface>
+
+                        over "toy_drummer_realistic_mat"
+                        {
+                            color3f inputs:diffuseColor.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file87.outputs:rgb>
+                            float inputs:metallic.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file88.outputs:r>
+                            normal3f inputs:normal.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file91.outputs:rgb>
+                            float inputs:occlusion.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file89.outputs:r>
+                            float inputs:roughness.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file90.outputs:r>
+                        }
+
+                        over "file91"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/place2dTexture117.outputs:result>
+                        }
+
+                        over "file90"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/place2dTexture116.outputs:result>
+                        }
+
+                        over "file89"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/place2dTexture115.outputs:result>
+                        }
+
+                        over "file88"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/place2dTexture114.outputs:result>
+                        }
+
+                        over "file87"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/place2dTexture113.outputs:result>
+                        }
+
+                        over "toy_drummer_realistic_mat_mtlx"
+                        {
+                            color3f inputs:diffuseColor.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file87_mtlx.outputs:out>
+                            float inputs:metallic.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file88_mtlx.outputs:out>
+                            float3 inputs:normal.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file91_mtlx_offset.outputs:out>
+                            float inputs:occlusion.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file89_mtlx.outputs:out>
+                            float inputs:roughness.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file90_mtlx.outputs:out>
+                        }
+
+                        over "file91_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/Lookup_st.outputs:out>
+                        }
+
+                        over "file91_mtlx_scale"
+                        {
+                            float3 inputs:in1.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file91_mtlx.outputs:out>
+                        }
+
+                        over "file91_mtlx_offset"
+                        {
+                            float3 inputs:in1.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/file91_mtlx_scale.outputs:out>
+                        }
+
+                        over "file88_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/Lookup_st.outputs:out>
+                        }
+
+                        over "file87_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/Lookup_st.outputs:out>
+                        }
+
+                        over "file89_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/Lookup_st.outputs:out>
+                        }
+
+                        over "file90_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_realistic/Lookup_st.outputs:out>
+                        }
+                    }
+
+                    over "toy_drummer_accessories_realistic"
+                    {
+                        token outputs:mtlx:surface.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/toy_drummer_acc_realistic_mat_mtlx.outputs:out>
+                        token outputs:surface.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/toy_drummer_acc_realistic_mat.outputs:surface>
+
+                        over "toy_drummer_acc_realistic_mat"
+                        {
+                            color3f inputs:diffuseColor.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file92.outputs:rgb>
+                            float inputs:metallic.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file93.outputs:r>
+                            normal3f inputs:normal.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file96.outputs:rgb>
+                            float inputs:occlusion.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file94.outputs:r>
+                            float inputs:roughness.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file95.outputs:r>
+                        }
+
+                        over "file96"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/place2dTexture122.outputs:result>
+                        }
+
+                        over "file95"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/place2dTexture121.outputs:result>
+                        }
+
+                        over "file93"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/place2dTexture119.outputs:result>
+                        }
+
+                        over "file92"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/place2dTexture118.outputs:result>
+                        }
+
+                        over "file94"
+                        {
+                            float2 inputs:st.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/place2dTexture120.outputs:result>
+                        }
+
+                        over "toy_drummer_acc_realistic_mat_mtlx"
+                        {
+                            color3f inputs:diffuseColor.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file92_mtlx.outputs:out>
+                            float inputs:metallic.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file93_mtlx.outputs:out>
+                            float3 inputs:normal.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file96_mtlx_offset.outputs:out>
+                            float inputs:occlusion.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file94_mtlx.outputs:out>
+                            float inputs:roughness.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file95_mtlx.outputs:out>
+                        }
+
+                        over "file96_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/Lookup_st.outputs:out>
+                        }
+
+                        over "file96_mtlx_scale"
+                        {
+                            float3 inputs:in1.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file96_mtlx.outputs:out>
+                        }
+
+                        over "file96_mtlx_offset"
+                        {
+                            float3 inputs:in1.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/file96_mtlx_scale.outputs:out>
+                        }
+
+                        over "file93_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/Lookup_st.outputs:out>
+                        }
+
+                        over "file92_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/Lookup_st.outputs:out>
+                        }
+
+                        over "file94_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/Lookup_st.outputs:out>
+                        }
+
+                        over "file95_mtlx"
+                        {
+                            float2 inputs:texcoord.connect = </Root/Toy_Drummer_1/geom/realistic/materials/toy_drummer_accessories_realistic/Lookup_st.outputs:out>
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
